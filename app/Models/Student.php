@@ -2,22 +2,30 @@
 
 namespace App\Models;
 
-use App\Models\Book;
-use App\Models\Group;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['group_id', 'book_id', 'name', 'count'];
+    protected $fillable = [
+        'group_id',
+        'name',
+        'has_book'
+    ];
 
     public function group(){
         return $this->belongsTo(Group::class);
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
     public function books(){
-        return $this->hasMany(Book::class);
+        return $this->hasManyThrough(Book::class, Order::class, 'student_id', 'id', 'id', 'book_id');
     }
 }
+// faculty=>groups=>students
+// students=>orders=>books

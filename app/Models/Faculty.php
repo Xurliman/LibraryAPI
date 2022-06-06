@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Group;
-use App\Models\Student;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Fakulty extends Model
+class Faculty extends Model
 {
     use HasFactory;
 
