@@ -12,9 +12,9 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'student_id' => rand(1, 3),
-            'book_id' => rand(1, 10),
-            'count' => rand(1, 5)
+            'student_id' => rand(12, 24),
+            'book_id' => rand(1, 40),
+            'count' => rand(1, 10)
         ];
     }
 }

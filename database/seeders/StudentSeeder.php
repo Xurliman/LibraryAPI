@@ -12,47 +12,47 @@ class StudentSeeder extends Seeder
     public function run()
     {
         $f = Faculty::create([
-            "name" => "Faculty of English Language"
+            "name" => "Faculty of Mathematics"
         ]);
         $f1 = Faculty::create([
-            "name" => "Economics Faculty"
+            "name" => "Biology Faculty"
         ]);
         $g1 = Group::create([
             'faculty_id' => $f->id,
-            "name" => "3b English"
+            "name" => "3b Mathematics"
         ]);
         $g2 = Group::create([
             'faculty_id' => $f->id,
-            "name" => "2d English"
+            "name" => "2d Mathematics"
         ]);
         $g3 = Group::create([
             'faculty_id' => $f1->id,
-            "name" => "2d English"
+            "name" => "2d Mathematics"
         ]);
 
         $s1 = Student::create([
             'group_id' => $g1->id,
-            "name" => "Fillip"
+            "name" => "Farhan"
         ]);
         $s2 = Student::create([
             'group_id' => $g2->id,
-            "name" => "Lorens"
+            "name" => "Hyuston"
         ]);
         $s3 = Student::create([
             'group_id' => $g1->id,
-            "name" => "Klara"
+            "name" => "Kira"
         ]);
         $s4 = Student::create([
             'group_id' => $g2->id,
-            "name" => "Fillip"
+            "name" => "Poll"
         ]);
         $s5 = Student::create([
             'group_id' => $g3->id,
-            "name" => "Lorens"
+            "name" => "Liza"
         ]);
         $s6 = Student::create([
             'group_id' => $g3->id,
-            "name" => "Klara"
+            "name" => "Adam"
         ]);
     }
 }
