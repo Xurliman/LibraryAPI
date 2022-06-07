@@ -10,10 +10,10 @@ use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
-
     // student should view:
     Route::group(['middleware' => 'student'], function(){
         Route::get('/my/books', [ViewController::class, 'myBooks']);
+
         Route::post('/user', [AuthController::class, 'getme']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -23,9 +23,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::group(['middleware' => 'librarian'], function(){
         Route::post('/give/books/{student}', [OrderController::class, 'giveBook']);
         Route::post('/return/books/{student}', [OrderController::class, 'returnBook']);
-        Route::resource('orders', OrderController::class, [
-            'index', 'show', 'update', 'delete'
-        ]);
+        Route::resource('orders', OrderController::class, ['index', 'show', 'update', 'delete']);
+
         Route::post('/user', [AuthController::class, 'getme']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -33,12 +32,16 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 
     // admin should view:
     Route::group(['middleware' => 'admin'], function(){
+        Route::post('/give/books/{student}', [OrderController::class, 'giveBook']);
+        Route::post('/return/books/{student}', [OrderController::class, 'returnBook']);
+        Route::resource('orders', OrderController::class, ['index', 'show', 'update', 'delete']);
         Route::apiResources([
             'faculties' => FacultyController::class,
             'groups' => GroupController::class,
             'students' => StudentController::class,
             'books' => BookController::class,
         ]);
+
         Route::post('/user', [AuthController::class, 'getme']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout']);
