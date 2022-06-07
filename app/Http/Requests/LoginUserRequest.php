@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GroupRequest extends FormRequest
+class LoginUserRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +14,8 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'faculty_id' => 'required|exists:faculties,id',
-            'name' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ];
     }
 }

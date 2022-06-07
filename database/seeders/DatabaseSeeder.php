@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Faculty;
-use App\Models\Group;
-use App\Models\Student;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +12,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // BookSeeder::class,    
-            OrderSeeder::class,
+            // OrderSeeder::class,
             // StudentSeeder::class
         ]);
     }

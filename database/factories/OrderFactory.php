@@ -12,8 +12,8 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'student_id' => rand(12, 24),
-            'book_id' => rand(1, 40),
+            'student_id' => $this->faker->numberBetween(1, 100),
+            'book_id' => rand(1, 100),
             'count' => rand(1, 10)
         ];
     }

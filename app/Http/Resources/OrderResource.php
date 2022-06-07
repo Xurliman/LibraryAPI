@@ -13,6 +13,7 @@ class OrderResource extends JsonResource
             'name' => $this->name,
             'group' => $this->group->name,
             'faculty' => $this->group->faculty->name,
+            'orders' => $this->orders,
             'books' => BookResource::collection($this->books)
         ];
     }

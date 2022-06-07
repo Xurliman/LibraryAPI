@@ -27,7 +27,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return response($book->order->books);
+        return response($book);
     }
 
     public function update(BookRequest $request, Book $book)

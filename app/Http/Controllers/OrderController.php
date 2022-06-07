@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $students = Student::has('orders')->with('orders')->with('books')->get();
+        $students = Student::has('orders')->with('orders')->with('books')->paginate();
         return OrderResource::collection($students);
     }
 
@@ -30,10 +30,14 @@ class OrderController extends Controller
                 if ($requestedCount > $targetBook->amount) {
                     return response(['message' => 'The amount of book is insufficient']);
                 }else {
-                    $this->dispatchSync(new GiveBookJob($order, $targetBook, $requestedCount)); 
+                    $count = $requestedCount + $order->count;
+                    $order->update(['count' => $count]);
+                    $amount = $targetBook->amount - $requestedCount;
+                    $targetBook->update(['amount' => $amount]);
+                    $order->student()->update(['has_book' => 1]);
                 }
             }else {
-                $this->dispatchSync(new CreateOrderJob($student, $book));
+                $student->orders()->create($book);
             }  
         }
         return response(['message'=>'successfull'], 201);
@@ -75,7 +79,10 @@ class OrderController extends Controller
                 $order->delete();
                 $student->update(['has_book' => 0]);
             }else {
-                $this->dispatchSync(new ReturnBookJob($order, $book, $targetBook));
+                $count = $order->count - $book['count'];
+                $amount = $targetBook->amount + $book['count'];
+                $order->update(['count' => $count]);
+                $targetBook->update(['amount' => $amount]);
             }
         }
         return response(['message'=>'successfull'], 201);
